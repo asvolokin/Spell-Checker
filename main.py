@@ -1,34 +1,9 @@
 import time
+from checker import Checker
+from wordlists import WordLists
 
 tic = time.perf_counter()
 dictionary = {}
-nouns = {}
-with open('dictionary.txt') as dic:
-    for words in dic:
-        words = words.strip().lower()  # by stripping the line after of each word, it reduces the complexity to O(1)
-        dictionary[words] = words
-with open('nouns.txt') as dic:
-    for words in dic:
-        words = words.strip().lower()  # by stripping the line after each word, it reduces the complexity to O(1)
-        nouns[words] = words
-
-
-def possessive_nouns(f):
-    r = r"'s"
-    for word in f:
-        if r in word:
-            k = word.replace(r, '')
-            if k in nouns:
-                f.remove(word)
-
-
-def plural_possessive_nouns(f):
-    r = r"s'"
-    for word in f:
-        if r in word:
-            k = word.replace(r, '')
-            if k in nouns:
-                f.remove(word)
 
 
 def text(f):
@@ -37,6 +12,7 @@ def text(f):
     f.close()
     spelling_errors = []
     contents = contents.lower()
+    WordLists.dictionary(dictionary)
     for p in """,.<>?/;:"[]{}|=_+)(*&^%$#@!`~""":  # gets rid of all punctuation
         contents = contents.replace(p, '')
     contents = contents.split()
@@ -45,8 +21,8 @@ def text(f):
             continue
         else:
             spelling_errors.append(word)
-    possessive_nouns(spelling_errors)
-    plural_possessive_nouns(spelling_errors)
+    Checker.possessive_nouns(spelling_errors)
+    Checker.plural_possessive_nouns(spelling_errors)
     return spelling_errors
 
 
