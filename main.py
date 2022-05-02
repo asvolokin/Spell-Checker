@@ -45,7 +45,9 @@ def spell_check(f):  # spell check is the main function that runs each of the si
         lst3 = Checker.single_letters_to_double_letters(item)
         # produces all possible replacement words from the sing letter replacement method
         lst4 = Checker.remove_first_letter(item)
+        # produces all possible replacement words from the remove first letter method
         lst5 = Checker.remove_last_letter(item)
+        # produces all possible replacement words from the remove last letter method
         total_sugg = [*lst1, *lst2, *lst3, *lst4, *lst5, "None of these options"]
         # concatenates the lists of all possible replacements into a single list to choose from
         print(total_sugg)
